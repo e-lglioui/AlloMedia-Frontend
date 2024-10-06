@@ -1,0 +1,202 @@
+body{
+    background-color: #e5e5e5 !important;
+  
+}
+.navbar{
+    box-shadow: 3px 0px 5px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 0px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 3px 0px 5px 2px rgba(0,0,0,0.1);
+    margin: 15px 15px 30px 270px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+.nav li{
+    margin: 0 0 10px;
+}
+.nav li a{
+   display: block;
+    padding: 10px 15px !important;
+    color: #000;
+    font-size: 16px;
+}
+
+.nav li a span{
+    margin: 0 0 0 8px !important;
+}
+
+.nav li a:hover{
+    color: #fff;
+    background-color:#6ea8fe;
+}
+.main-part{
+    padding: 20px !important;
+    margin: 0 15px 15px 270px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 3px 0px 5px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 0px 5px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 3px 0px 5px 2px rgba(0,0,0,0.1);
+}
+.bg-sidebar{
+    color: #000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 3px 0px 11px 2px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 3px 0px 11px 2px rgba(0,0,0,0.1);
+    -moz-box-shadow: 3px 0px 11px 2px rgba(0,0,0,0.1);
+}
+.bg-sidebar .logo{
+    display: block;
+    width: 120px;
+    margin: 0 auto 25px;
+    text-align: center;
+}
+.bg-sidebar .logo img{
+    width: 100%;
+}
+.card-header{
+    background-color: rgba(0,0,0,0.18) !important;
+}
+
+.loader {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(0,0,0,0.15);
+}
+.spinner-border{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: 100px;
+}
+.login-block{
+    padding:50px 50px 100px;
+    border-radius: 50px;
+    background-color: #fff;
+    box-shadow: 0px 2px 11px 2px rgba(13,110,253,0.1);
+    -webkit-box-shadow: 0px 2px 11px 2px rgba(13,110,253,0.1);
+    -moz-box-shadow: 0px 2px 11px 2px rgba(13,110,253,0.1);
+    min-height: 400px;
+
+
+}
+.logo-login{
+    display: block;
+    margin: 0 auto 30px;
+}
+.login-block h2{
+
+    margin-bottom: 40px;
+}
+.login-block input{
+    font-size: 16px;
+    border-radius: 30px;
+}
+.login-block button{
+    font-size: 18px;
+    border-radius: 30px;
+}
+
+.login-block .text-danger{
+    font-size: 14px;
+    display: block;
+    padding: 3px;
+    font-weight: 500;
+    text-align: left;
+}
+
+.login-block .expiry-time{
+    font-size: 14px;
+    text-align: right;
+}
+.login-block .btn-refresh{
+    border: none;
+    display: block;
+    margin: 0 auto;
+    font-size: 13px;
+    background-color: transparent;
+}
+.login-block .btn-refresh i{
+    width: 100px;
+    height: 100px;
+    font-size: 35px;
+    border-radius: 100%;
+    color: #fff;
+    border: none;
+    line-height: 100px;
+    margin: 0 auto 8px;
+    display: block;
+    background-color: rgb(13,110,253,0.8);
+    box-shadow: 0px 2px 11px 2px rgba(13,110,253,0.1);
+    -webkit-box-shadow: 0px 2px 11px 2px rgba(13,110,253,0.1);
+    -moz-box-shadow: 0px 2px 11px 2px rgba(13,110,253,0.1);
+}
+.move-right {
+    animation: moveright 1.2s 1 normal forwards;
+
+}
+@keyframes moveright {
+    from {
+        transform: translateX(500px);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}
+.active {
+     border: none!important;
+    font-weight: normal;
+}
+.btn.btn-primary.accept {
+    background-color: #E1F4E9;
+    background-repeat: no-repeat;
+    background-position: 11px 50%;
+    color: #27AE60;
+    line-height: 36px;
+    padding: 0 8px 0 12px;
+    border-radius: 36px;
+    margin-right: 5px;
+}
+.btn.btn-primary.reject{
+    background-color: #FCEAEA;
+    background-repeat: no-repeat;
+    background-position: 11px 50%;
+    color: #EB5757;
+    line-height: 36px;
+    padding: 0 12px 0 12px;
+    border-radius: 36px;
+}
+.btn.btn-primary.accept:focus{
+    background-color: #E1F4E9 !important;
+    color: #27AE60!important;
+}
+.btn.btn-primary.reject:focus{
+    background-color: #FCEAEA !important;
+    color: #EB5757!important;
+}
+.branch-tabs {
+    display: table;
+    width: 100%;
+    margin: 20px 0 !important;
+}
+.branch-tabs .nav-item {
+    display: table-cell;
+    vertical-align: middle;
+    width: 33.33%;
+}
+.branch-tabs .nav-item .nav-link {
+    display: block;
+    text-align: center;
+    padding: 10px 15px;
+    width: 100%;
+    color: #000;
+    font-size: 16px;
+}
