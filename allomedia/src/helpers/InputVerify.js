@@ -42,6 +42,20 @@ function passwordVerify(errors = {}, values, confirm = false) {
 
     return errors;
 }
+//verfication de phone
+function phoneNumberVerify(error = {}, values) {
+ 
+    const phoneRegex = /^[+]?[0-9]{1,4}?[-.\s]?[0-9]{1,3}?[-.\s]?[0-9]{3,4}?[-.\s]?[0-9]{3,4}$/;
+
+    if (!values.phone) {
+        error.phone = toast.error('Phone number is required...!');
+    } else if (!phoneRegex.test(values.phone)) {
+        error.phone = toast.error('Invalid phone number...!');
+    }
+
+    return error;
+}
+
 //generer tost 
 function toastWarn(message) {
     return toast(message, {
