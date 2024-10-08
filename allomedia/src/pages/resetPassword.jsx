@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
 const ResetPasswordForm = () => {
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [searchParams] = useSearchParams();
@@ -12,27 +12,18 @@ const ResetPasswordForm = () => {
 
   const token = searchParams.get('token'); // Récupérer le token depuis l'URL
 
-  const handlePasswordReset = async (e) => {
-    e.preventDefault();
-
-    
-    if (newPassword !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
+  const onSubmit = async (data) => {
     try {
-      
-        const response = await axios.post(`http://localhost:3000/api/auth/reset-password/${token}`, { newPassword });
-
-
+      const response = await axios.post(`http://localhost:3000/api/auth/reset-password/${token}`, { newPassword: data.newPassword });
       setSuccessMessage(response.data.message);
-      setTimeout(() => navigate('/login'), 3000);  
-
+      setTimeout(() => navigate('/login'), 3000);
     } catch (error) {
       setError(error.response ? error.response.data.message : 'An error occurred');
     }
   };
+
+  // Pour valider si les mots de passe correspondent
+  const newPassword = watch('newPassword'); // Regarde la valeur de newPassword
 
   return (
     <section className="vh-100" style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
@@ -40,8 +31,8 @@ const ResetPasswordForm = () => {
         <div className="row d-flex align-items-center justify-content-center h-100">
           <div className="col-md-8 col-lg-7 col-xl-6">
             <img
-              src="illustration.png" 
-              className="img-fluid" 
+              src="illustration.png"
+              className="img-fluid"
               alt="Phone image"
             />
           </div>
@@ -54,17 +45,19 @@ const ResetPasswordForm = () => {
               {error && <p style={{ color: 'red' }}>{error}</p>}
               {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
-              <form onSubmit={handlePasswordReset}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group mb-3">
                   <label htmlFor="newPassword">New Password</label>
                   <input
                     id="newPassword"
                     type="password"
-                    className="form-control"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    required
+                    className={`form-control ${errors.newPassword ? 'is-invalid' : ''}`}
+                    {...register('newPassword', {
+                      required: 'New password is required',
+                      minLength: { value: 6, message: 'Password must be at least 6 characters long' }
+                    })}
                   />
+                  {errors.newPassword && <span className="text-danger">{errors.newPassword.message}</span>}
                 </div>
 
                 <div className="form-group mb-3">
@@ -72,11 +65,13 @@ const ResetPasswordForm = () => {
                   <input
                     id="confirmPassword"
                     type="password"
-                    className="form-control"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
+                    className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
+                    {...register('confirmPassword', {
+                      required: 'Confirm password is required',
+                      validate: value => value === newPassword || 'Passwords do not match'
+                    })}
                   />
+                  {errors.confirmPassword && <span className="text-danger">{errors.confirmPassword.message}</span>}
                 </div>
 
                 <button type="submit" className="btn btn-primary w-100">
