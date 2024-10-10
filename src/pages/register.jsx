@@ -96,6 +96,7 @@ const Register = () => {
                                         id="email"
                                         placeholder="-- Enter Email address --"
                                         className="form-control form-control-lg"
+                                
                                         onChange={(e) => setEmail(e.target.value)}
                                     />
                                     <span className="text-danger">{errors['email']}</span>
