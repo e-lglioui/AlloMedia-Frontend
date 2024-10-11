@@ -4,9 +4,12 @@ import axios from "axios";
 import illustration from "../assets/illustration.png";
 import Swal from 'sweetalert2';
 import Cookies from 'js-cookie'; 
+import { useSelector } from "react-redux";
 // import logo from "../assets/logo.png"; 
 
 const Register = () => {
+    // const { value } = useSelector(state => state.counter);
+    // console.log(value);
     console.log("Register component loaded");
 
     const [name, setName] = useState("");            
