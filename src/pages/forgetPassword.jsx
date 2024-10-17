@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-
+import Header from '../components/Header'; 
 const ForgetPassword = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [message, setMessage] = useState('');
@@ -23,6 +23,8 @@ const ForgetPassword = () => {
   };
 
   return (
+    <>
+     <Header />
     <div>
       <section className="vh-100" style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
         <div className="container py-5 h-100">
@@ -73,6 +75,7 @@ const ForgetPassword = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

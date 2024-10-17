@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2';
 import { useForm } from "react-hook-form"; 
-
+import Header from '../components/Header'; 
 const Login = () => {
-    const { register, handleSubmit, setError, formState: { errors }, watch } = useForm(); // Destructure the hook
+    const { register, handleSubmit, setError, formState: { errors }, watch } = useForm(); 
     const [otp, setOtp] = useState(""); 
     const [screen, setScreen] = useState(1);    
     const [timeRemaining, setTimeRemaining] = useState(300); 
     const [disableOTPSubmitButton, setDisableOTPSubmitButton] = useState(false);
     const [userId, setUserId] = useState(null); 
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (screen === 2 && timeRemaining > 0) {
             const timer = setInterval(() => {
@@ -32,14 +32,53 @@ const Login = () => {
             .catch((error) => {
                 setError("email", { type: "manual", message: "Invalid email or password" });
             });
+            
     };
 
     const handleOtpSubmit = (data) => {
         const { otp } = data;
-
-        axios.post(`http://localhost:3000/api/auth/verify2FA/${userId}`, { otp })
+        // setDisableOTPSubmitButton(true);
+        
+        axios.post(`http://localhost:3000/api/auth/verify2FA/${userId}`, { otp }, {
+            withCredentials: true, 
+          })
+          
             .then((response) => {
                 Swal.fire('Login Successful!', 'You have been logged in.', 'success');
+            const accessToken = response.data.accessToken; 
+   
+             localStorage.setItem('accessToken', accessToken); 
+             navigate('/')
+             const token = localStorage.getItem('accessToken');
+if (token) {
+    console.log("Access token found:", token);
+    const decodedToken = JSON.parse(atob(token.split('.')[1])); 
+    const expirationTime = decodedToken.exp * 1000;
+
+    if (Date.now() >= expirationTime) {
+        console.log("Access token has expired.");
+    } else {
+        console.log("Access token is still valid.");
+    }
+} else {
+    console.log("Access token not found.");
+}
+
+const getCookie = (cookieName) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${cookieName}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+};
+
+const refreshToken = getCookie('refreshToken');
+if (refreshToken) {
+    console.log('Refresh token is stored in cookies.');
+} else {
+    console.log('Refresh token not found in cookies.');
+}
+
+
             })
             .catch((error) => {
                 setError("otp", { type: "manual", message: "Invalid OTP" });
@@ -63,6 +102,8 @@ const Login = () => {
     const password = watch("password");
 
     return (
+        <>
+        <Header />
         <div>
             <section className="vh-100" style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
                 <div className="container py-5 h-100">
@@ -137,9 +178,10 @@ const Login = () => {
                                         </>
                                     )}
 
-                                    {!disableOTPSubmitButton && (
-                                        <button type="submit" className="btn btn-primary btn-lg w-100">Sign in</button>
-                                    )}
+                                          {!disableOTPSubmitButton && (
+    <button type="submit" className="btn btn-primary btn-lg w-100">Sign in</button>
+                                          )}
+
                                     {screen === 1 && (
                                         <a href="/forgetPassword"> Forget password</a>
                                     )}
@@ -150,6 +192,7 @@ const Login = () => {
                 </div>
             </section>
         </div>
+        </>
     );
 };
 

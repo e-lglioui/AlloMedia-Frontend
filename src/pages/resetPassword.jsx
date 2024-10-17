@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-
+import Header from '../components/Header'; 
 const ResetPasswordForm = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [error, setError] = useState('');
@@ -10,7 +10,7 @@ const ResetPasswordForm = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const token = searchParams.get('token'); // Récupérer le token depuis l'URL
+  const token = searchParams.get('token'); 
 
   const onSubmit = async (data) => {
     try {
@@ -22,10 +22,11 @@ const ResetPasswordForm = () => {
     }
   };
 
-  // Pour valider si les mots de passe correspondent
-  const newPassword = watch('newPassword'); // Regarde la valeur de newPassword
+  const newPassword = watch('newPassword'); 
 
   return (
+    <>
+     <Header />
     <section className="vh-100" style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
       <div className="container py-5 h-100">
         <div className="row d-flex align-items-center justify-content-center h-100">
@@ -83,6 +84,7 @@ const ResetPasswordForm = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

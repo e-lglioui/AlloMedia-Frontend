@@ -5,6 +5,7 @@ import illustration from "../assets/illustration.png";
 import Swal from 'sweetalert2';
 import Cookies from 'js-cookie'; 
 import { useSelector } from "react-redux";
+import Header from '../components/Header'; 
 // import logo from "../assets/logo.png"; 
 
 const Register = () => {
@@ -42,9 +43,9 @@ const Register = () => {
                  <br> <a href="https://mail.google.com/" target="_blank">Accéder à ma boîte de réception</a>`,
         });
     
-        const accessToken = response.data.accessToken; 
+        // const accessToken = response.data.accessToken; 
    
-        localStorage.setItem('accessToken', accessToken); 
+        // localStorage.setItem('accessToken', accessToken); 
    
         setName('');
         setEmail('');
@@ -66,6 +67,8 @@ const Register = () => {
     
 
     return (
+        <>
+         <Header />
         <div>
             <section className="vh-full-screen" style={{ backgroundColor: "#f5f5f5", overflow: "hidden" }}>
                 <div className="container py-5 h-100">
@@ -151,7 +154,7 @@ const Register = () => {
           name="role"
           id="clientRole"
           value="client"
-          checked={role === "client"} // Sélectionne par défaut "client"
+          checked={role === "client"} 
                                                onChange={(e) => setRole(e.target.value)}
                                          />
                                       <label className="form-check-label" htmlFor="clientRole">
@@ -165,7 +168,7 @@ const Register = () => {
           name="role"
           id="livreurRole"
           value="livreur"
-          checked={role === "livreur"} // Sélectionne "livreur" si l'utilisateur le choisit
+          checked={role === "livreur"} 
                                     onChange={(e) => setRole(e.target.value)}
                                   />
                                   <label className="form-check-label" htmlFor="livreurRole">
@@ -185,6 +188,7 @@ const Register = () => {
                 </div>
             </section>
         </div>
+        </>
     );
 };
 
